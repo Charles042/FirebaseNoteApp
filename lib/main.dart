@@ -1,4 +1,5 @@
-import 'package:firebase_note_app/screens/homescreen.dart';
+//import 'package:firebase_note_app/screens/homescreen.dart';
+import 'package:firebase_note_app/screens/loginscreen.dart';
 import 'package:firebase_note_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: Constants.darkTheme,
-      home: HomeScreen(),
+      theme: Constants.lightTheme,
+      home: LoginScreen(),
     );
   }
 }

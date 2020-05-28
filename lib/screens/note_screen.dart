@@ -21,7 +21,7 @@ class _NoteScreenState extends State<NoteScreen> {
           ),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.save),color:Theme.of(context).accentColor, onPressed: () {}),
+          IconButton(icon: Icon(Icons.save), onPressed: () {}),
         ],
       ),
       body: ListView(
