@@ -22,9 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body:
-          /* */
-          Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
