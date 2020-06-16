@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_note_app/screens/homescreen.dart';
+import 'package:firebase_note_app/screens/signupscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -13,37 +12,11 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool loading = false;
-  bool isLoggedin = false;
-  String _email;
-  String _password;
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
+  bool validate = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
-  SharedPreferences preferences;
-
-  @override
-  void initState() {
-    super.initState();
-    isSignedIn();
-  }
-
-  void isSignedIn() async {
-    setState(() {
-      loading = true;
-    });
-    preferences = await SharedPreferences.getInstance();
-    isLoggedin = await googleSignIn.isSignedIn();
-
-    if (isLoggedin) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
-    setState(() {
-      loading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,36 +27,129 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //    _buildEmail(),
-            //    _buildpassWord(),
+            _buildEmail(),
+            _buildpassWord(),
             SizedBox(
-              height: 100,
+              height: 50,
             ),
             Container(
               height: 40,
               width: 140,
               child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  color: Colors.blueAccent,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white, fontSize: 17),
-                  ),
-                  onPressed: () {
-                    handleSignIn();
-                  }),
-            ),
-            Visibility(
-              visible: loading ?? true,
-              child: Center(
-                child: CircularProgressIndicator(),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                color: Theme.of(context).accentColor,
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+                onPressed: () {
+                  /* FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _email, password: _password)
+                      .then((FirebaseUser user) {
+                    Navigator.of(context).pushReplacementNamed('/homepage');
+                  }).catchError((e) {
+                    print(e);
+                  }); */
+                  if (_loginKey.currentState.validate()) {
+                    _signIn();
+                  }
+                },
               ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(
+                  'Don\'t have an account?',
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                ),
+                SizedBox(width: 5),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => SignUp()));
+                  },
+                  child: Text(
+                    'SignUp',
+                    style: TextStyle(
+                        color: Theme.of(context).accentColor, fontSize: 14),
+                  ),
+                ),
+              ],
             )
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  // Example code of how to sign in with email and password.
+
+  _signIn() async {
+    FormState form = _loginKey.currentState;
+    form.save();
+    if (!form.validate()) {
+      validate = true;
+      Fluttertoast.showToast(
+        msg: "Fix the Errors before submitting.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
+      );
+    } else {
+      setState(() {
+        loading = true;
+      });
+      _auth
+          .signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+          .then((result) {
+        FirebaseUser user = result.user;
+        setState(() {
+          loading = false;
+        });
+        Fluttertoast.showToast(
+          msg: "Login Successful ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return HomeScreen();
+            },
+          ),
+        );
+      }).catchError((e) {
+        // showInSnackBar(e.toString());
+        Fluttertoast.showToast(
+          msg: (e.toString()),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+        );
+        setState(() {
+          loading = false;
+        });
+      });
+    }
   }
 
   Widget _buildEmail() {
@@ -105,9 +171,9 @@ class _LoginFormState extends State<LoginForm> {
           }
           return null;
         },
-        onSaved: (String value) {
+        /* onSaved: (String value) {
           _email = value;
-        },
+        }, */
       ),
     );
   }
@@ -124,63 +190,16 @@ class _LoginFormState extends State<LoginForm> {
         validator: (String value) {
           if (value.isEmpty) {
             return 'Password is Required';
+          } else if (value.length < 4) {
+            return "Password must be atleast 4 character";
           }
           return null;
         },
-        onSaved: (String value) {
+        /*  onSaved: (String value) {
           _password = value;
-        },
+        }, */
+        obscureText: true,
       ),
     );
-  }
-
-  Future handleSignIn() async {
-    preferences = await SharedPreferences.getInstance();
-    setState(() {
-      loading = true;
-    });
-
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleUser.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    final FirebaseUser firebaseUser =
-        (await firebaseAuth.signInWithCredential(credential)).user;
-
-    if (firebaseUser != null) {
-      final QuerySnapshot result = await Firestore.instance
-          .collection("users")
-          .where("id", isEqualTo: firebaseUser.uid)
-          .getDocuments();
-      final List<DocumentSnapshot> documents = result.documents;
-
-      if (documents.length == 0) {
-        Firestore.instance
-            .collection("users")
-            .document(firebaseUser.uid)
-            .setData({
-          "id": firebaseUser.uid,
-          "username": firebaseUser.displayName,
-          "profilePicture": firebaseUser.photoUrl,
-        });
-        await preferences.setString("id", firebaseUser.uid);
-        await preferences.setString("username", firebaseUser.displayName);
-        await preferences.setString("profilePicture", firebaseUser.photoUrl);
-      } else {
-        await preferences.setString("id", documents[0]['id']);
-        await preferences.setString("username", documents[0]['username']);
-        await preferences.setString("photoUrl", documents[0]['photoUrl']);
-      }
-      Fluttertoast.showToast(msg: "Login Successful");
-      setState(() {
-        loading = false;
-      });
-      //  print("signed in " + firebaseUser.displayName);
-      // return firebaseUser;
-    } else {}
   }
 }

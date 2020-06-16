@@ -11,28 +11,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
+      body: ListView(
         children: <Widget>[
           Center(
-            child: Image.asset('assets/images/cvg.jpg', fit: BoxFit.cover,
+            child: Image.asset(
+              'assets/images/noteslogo.png',
+              fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 250.0),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage('assets/images/googlelogo.png'),
-                     radius: 60,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  LoginForm(),
-                ],
-              ),
+          Center(
+            child: Column(
+              children: <Widget>[
+                LoginForm(),
+              ],
             ),
           ),
         ],
