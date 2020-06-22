@@ -51,12 +51,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
       SizedBox(
         height: 5,
       ),
-      Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-        child: Divider(
-          color: Theme.of(context).accentColor,
-        ),
-      ),
+      
       Padding(
         padding: const EdgeInsets.only(left: 15.0),
         child: Text(
