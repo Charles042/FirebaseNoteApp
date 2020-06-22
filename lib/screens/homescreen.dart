@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_note_app/firebase-crud/crud.dart';
 import 'package:firebase_note_app/screens/displayscreen.dart';
 import 'package:firebase_note_app/screens/note_screen.dart';
 import 'package:flutter/material.dart';

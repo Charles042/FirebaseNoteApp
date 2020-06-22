@@ -145,7 +145,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
 
   _buildSaveEdit() {
     if (edit) {
-      IconButton(
+      return IconButton(
         icon: Icon(Icons.check),
         onPressed: () {
           updateNote();
@@ -156,10 +156,10 @@ class _DisplayScreenState extends State<DisplayScreen> {
         icon: Icon(Icons.edit),
         onPressed: () {
          // edit = true;
-         // documentID = widget.docId.documentID;
-         // _title.text =  widget.title["title"];
-         // _content.text = widget.title["content"];
          setState(() {
+           documentID = widget.docId.documentID;
+           _title.text =  widget.title["title"];
+           _content.text = widget.title["content"];
            edit = true;
          });
         },
