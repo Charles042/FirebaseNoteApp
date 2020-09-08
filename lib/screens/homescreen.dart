@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: <Widget>[
           IconButton(
+            onPressed: () {},
             icon: Icon(Icons.more_vert),
           ),
         ],
@@ -97,9 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             .document(user.uid)
                             .collection("notes")
                             .snapshots(),
-                            
                         builder: (context, snapshot) {
-                          
                           QuerySnapshot snap = snapshot.data;
                           List<DocumentSnapshot> notes = snap.documents;
                           return ListView.builder(
@@ -167,8 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget _buildNotes(context, String title, String content) {
-  return
-      Padding(
+  return Padding(
     padding: const EdgeInsets.only(left: 15.0, right: 20, top: 10),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -181,7 +179,6 @@ Widget _buildNotes(context, String title, String content) {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               maxLines: 1,
             ),
-
           ],
         ),
         SizedBox(height: 10),

@@ -32,44 +32,37 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 50,
             ),
-            Container(
-              height: 40,
-              width: 140,
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                color: Theme.of(context).accentColor,
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-                onPressed: () {
-                  /* FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _email, password: _password)
-                      .then((FirebaseUser user) {
-                    Navigator.of(context).pushReplacementNamed('/homepage');
-                  }).catchError((e) {
-                    print(e);
-                  }); */
-                  if (_loginKey.currentState.validate()) {
-                    _signIn();
-                  }
-                },
-              ),
-            ),
+            loading
+                ? CircularProgressIndicator()
+                : Container(
+                    height: 40,
+                    width: 140,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      color: Theme.of(context).accentColor,
+                      child: Text(
+                        'Login',
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
+                      onPressed: () {
+                        if (_loginKey.currentState.validate()) {
+                          _signIn();
+                        }
+                      },
+                    ),
+                  ),
             SizedBox(
               height: 15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   'Don\'t have an account?',
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
-                SizedBox(width: 5),
                 InkWell(
                   onTap: () {
                     Navigator.of(context)
@@ -123,6 +116,7 @@ class _LoginFormState extends State<LoginForm> {
         setState(() {
           loading = false;
         });
+        print(user);
         Fluttertoast.showToast(
           msg: "Login Successful ",
           toastLength: Toast.LENGTH_SHORT,

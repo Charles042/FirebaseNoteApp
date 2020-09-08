@@ -1,5 +1,3 @@
-//import 'package:firebase_note_app/screens/homescreen.dart';
-import 'package:firebase_note_app/screens/homescreen.dart';
 import 'package:firebase_note_app/screens/loginscreen.dart';
 import 'package:firebase_note_app/utils/constants.dart';
 import 'package:flutter/material.dart';
