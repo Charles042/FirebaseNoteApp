@@ -16,7 +16,6 @@ class _NoteScreenState extends State<NoteScreen> {
 
   getUser() async {
     user = await auth.currentUser();
-
     setState(() {});
   }
 
