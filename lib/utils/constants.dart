@@ -21,6 +21,7 @@ class Constants{
     appBarTheme: AppBarTheme(
       elevation: 0,
       textTheme: TextTheme(
+        // ignore: deprecated_member_use
         title: TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -40,6 +41,7 @@ class Constants{
     appBarTheme: AppBarTheme(
       elevation: 0,
       textTheme: TextTheme(
+        // ignore: deprecated_member_use
         title: TextStyle(
           color: lightBG,
           fontSize: 20,

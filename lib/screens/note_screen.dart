@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NoteScreen extends StatefulWidget {
@@ -8,6 +10,20 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   TextEditingController _title = TextEditingController();
   TextEditingController _content = TextEditingController();
+  Firestore firestore = Firestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseUser user;
+
+  getUser() async {
+    user = await auth.currentUser();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +37,11 @@ class _NoteScreenState extends State<NoteScreen> {
           ),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.save), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {
+                createNote();
+              }),
         ],
       ),
       body: ListView(
@@ -34,31 +54,32 @@ class _NoteScreenState extends State<NoteScreen> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: TextField(
-                      controller: _title,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Title', hintStyle: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ),
-                  
-                  Expanded(
-                      child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: TextField(
-                          controller: _content,
-                          maxLines: null,
-                          decoration: InputDecoration.collapsed(
-                              hintText: 'Type Notes...'),
-                          textCapitalization: TextCapitalization.sentences,
+                      padding: const EdgeInsets.all(1.0),
+                      child: TextField(
+                        controller: _title,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ),
-                    ],
-                  ))
+                      )),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: TextField(
+                            controller: _content,
+                            maxLines: null,
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'Type Notes...',
+                            ),
+                            textCapitalization: TextCapitalization.sentences,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -66,5 +87,18 @@ class _NoteScreenState extends State<NoteScreen> {
         ],
       ),
     );
+  }
+
+  createNote() {
+    firestore.collection("users").document(user.uid).collection("notes").add({
+      "title": "${_title.text}",
+      "content": "${_content.text}",
+    });
+    print(_title.text);
+    print(_content.text);
+
+    _title.clear();
+    _content.clear();
+    Navigator.pop(context);
   }
 }

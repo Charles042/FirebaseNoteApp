@@ -1,12 +1,12 @@
-import 'package:firebase_note_app/widgets/loginForm.dart';
+import 'package:firebase_note_app/widgets/signupForm.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: Column(
               children: <Widget>[
-                LoginForm(),
+                SignupForm(),
               ],
             ),
           ),
