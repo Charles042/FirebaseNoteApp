@@ -33,28 +33,26 @@ class _SignupFormState extends State<SignupForm> {
             SizedBox(
               height: 50,
             ),
-           loading
-                  ? CircularProgressIndicator()
-                  : Container(
-              height: 40,
-              width: 140,
-              child:  RaisedButton(
+            loading
+                ? CircularProgressIndicator()
+                : Container(
+                    height: 40,
+                    width: 140,
+                    child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       color: Theme.of(context).accentColor,
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
                       onPressed: () {
-                        
                         _signUp();
                       },
                     ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
+                  ),
+            SizedBox(height: 15),
           ],
         ),
       ),

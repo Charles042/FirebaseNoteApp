@@ -39,7 +39,8 @@ class _LoginFormState extends State<LoginForm> {
                     width: 140,
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       color: Theme.of(context).accentColor,
                       child: Text(
                         'Login',
@@ -65,8 +66,11 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => SignUp()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => SignUp(),
+                      ),
+                    );
                   },
                   child: Text(
                     'SignUp',

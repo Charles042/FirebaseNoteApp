@@ -65,21 +65,22 @@ class _NoteScreenState extends State<NoteScreen> {
                         ),
                       )),
                   Expanded(
-                      child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: TextField(
-                          controller: _content,
-                          maxLines: null,
-                          decoration: InputDecoration.collapsed(
-                            hintText: 'Type Notes...',
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: TextField(
+                            controller: _content,
+                            maxLines: null,
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'Type Notes...',
+                            ),
+                            textCapitalization: TextCapitalization.sentences,
                           ),
-                          textCapitalization: TextCapitalization.sentences,
                         ),
-                      ),
-                    ],
-                  ))
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
