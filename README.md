@@ -23,7 +23,6 @@ Star⭐ the repo if you like what you see😉.
 
 ## 📸 ScreenShots
 
-|------|-------|
 |<img src="ss/flutter_01.png" width="400">|<img src="ss/flutter_02.png" width="400">
 |<img src="ss/flutter_03.png" width="400">|<img src="ss/flutter_04.png" width="400">
 
