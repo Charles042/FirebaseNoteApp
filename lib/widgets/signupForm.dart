@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_note_app/screens/loginscreen.dart';
+import 'package:firebase_note_app/screens/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -63,6 +63,7 @@ class _SignupFormState extends State<SignupForm> {
     return Theme(
       data: ThemeData(primaryColor: Theme.of(context).accentColor),
       child: TextFormField(
+        autovalidate: true,
         controller: _emailController,
         decoration: InputDecoration(
           icon: Icon(Icons.email),
@@ -91,6 +92,7 @@ class _SignupFormState extends State<SignupForm> {
       data: ThemeData(primaryColor: Theme.of(context).accentColor),
       child: TextFormField(
         obscureText: false,
+        autovalidate: true,
         controller: _passwordController,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
@@ -101,7 +103,7 @@ class _SignupFormState extends State<SignupForm> {
           if (value.isEmpty) {
             return 'Password is Required';
           } else if (value.length < 4) {
-            return "Password must be atleast 4 character";
+            return "Password must be more than 4 character";
           }
           return null;
         },
@@ -152,7 +154,7 @@ class _SignupFormState extends State<SignupForm> {
             context,
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return LoginScreen();
+                return HomeScreen();
               },
             ),
           );

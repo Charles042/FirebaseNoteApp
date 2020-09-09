@@ -154,6 +154,7 @@ class _LoginFormState extends State<LoginForm> {
     return Theme(
       data: ThemeData(primaryColor: Theme.of(context).accentColor),
       child: TextFormField(
+        autovalidate: true,
         controller: _emailController,
         decoration: InputDecoration(
           labelText: 'Email',
@@ -180,6 +181,7 @@ class _LoginFormState extends State<LoginForm> {
     return Theme(
       data: ThemeData(primaryColor: Theme.of(context).accentColor),
       child: TextFormField(
+        autovalidate: true,
         controller: _passwordController,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(

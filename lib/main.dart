@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_note_app/screens/homescreen.dart';
 import 'package:firebase_note_app/screens/loginscreen.dart';
 import 'package:firebase_note_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,4 +15,18 @@ class MyApp extends StatelessWidget {
       home: LoginScreen(),
     );
   }
+
+  buildHome() {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.onAuthStateChanged,
+      builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+        print(snapshot?.data);
+        if (snapshot.hasData) {
+          return HomeScreen();
+        }
+        return LoginScreen();
+      },
+    );
+  }
 }
+
