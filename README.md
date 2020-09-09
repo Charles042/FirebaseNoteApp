@@ -1,4 +1,4 @@
-# 🔥🔥 Flutter Firebase Note App  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  [![Twitter Follow](https://img.shields.io/twitter/follow/iamjideguru.svg?style=social)](https://twitter.com/iamjideguru)
+# 🔥🔥 Flutter Firebase Note App 
 Firebase Note app.
 
 Star⭐ the repo if you like what you see😉.
