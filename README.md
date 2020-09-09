@@ -1,6 +1,38 @@
-# firebase_note_app
+# 🔥🔥 Flutter Firebase Note App 
+Firebase Note app.
 
-A new Flutter project.
+Star⭐ the repo if you like what you see😉.
+
+
+
+## ✨ Requirements
+* Any Operating System (ie. MacOS X, Linux, Windows)
+* Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc)
+* A little knowledge of Dart and Flutter
+* A brain to think 🤓🤓
+* Basic Knowledge on Firebase
+
+
+## Features
+
+* Swipe to Delete a Note
+* Create a Note
+* Update a Note
+* Edit & Save
+
+
+## 📸 ScreenShots
+
+|<img src="ss/flutter_01.png" width="400">|<img src="ss/flutter_02.png" width="400">
+|<img src="ss/flutter_03.png" width="400">|<img src="ss/flutter_04.png" width="400">
+|<img src="ss/flutter_05.png" width="400">
+
+
+## 🌗 Toggle theme
+To toggle the theme, change the `theme` widget in `main.dart`.
+
+`darkTheme` for darkTheme and `lightTheme` for lightTheme.
+
 
 ## Getting Started
 
@@ -14,3 +46,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+

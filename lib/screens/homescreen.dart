@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_note_app/screens/displayscreen.dart';
 import 'package:firebase_note_app/screens/note_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,39 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10.0),
-                  child: Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      color: Colors.grey[300],
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Center(child: Text('Search..')),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Icon(Icons.search),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
                 Expanded(
                   child: Container(
                     child: StreamBuilder(
@@ -99,15 +67,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             .collection("notes")
                             .snapshots(),
                         builder: (context, snapshot) {
-                          QuerySnapshot snap = snapshot.data;
-                          List<DocumentSnapshot> notes = snap.documents;
-                          return ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
-                            itemCount: notes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              DocumentSnapshot doc = notes[index];
-                              Map body = doc.data;
-                              return Dismissible(
+                          if (snapshot.hasData) {
+                            QuerySnapshot snap = snapshot?.data;
+                            List<DocumentSnapshot> notes = snap?.documents;
+                            if (notes.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('No Notes'),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child:
+                                          Text('Tap the purple to add a Note'),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                            return ListView.builder(
+                              physics: AlwaysScrollableScrollPhysics(),
+                              itemCount: notes?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot doc = notes[index];
+                                Map body = doc.data;
+
+                                return Dismissible(
                                   key: ObjectKey("${notes[index]}"),
                                   background: stackBehindDismiss(),
                                   direction: DismissDirection.endToStart,
@@ -132,9 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "${body["title"]}",
                                           "${body["content"]}"),
                                     ),
-                                  ));
-                            },
-                          );
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                         }),
                   ),
                 ),
