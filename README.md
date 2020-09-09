@@ -25,8 +25,7 @@ Star⭐ the repo if you like what you see😉.
 
 |<img src="ss/flutter_01.png" width="400">|<img src="ss/flutter_02.png" width="400">
 |<img src="ss/flutter_03.png" width="400">|<img src="ss/flutter_04.png" width="400">
-
-|<img src="ss/flutter_05.png">
+|<img src="ss/flutter_05.png" width="400">
 
 
 ## 🌗 Toggle theme
