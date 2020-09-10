@@ -5,6 +5,8 @@ import 'package:firebase_note_app/screens/note_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'loginscreen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -47,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert),
+            onPressed: () => _signOut(),
+            icon: Icon(Icons.exit_to_app),
           ),
         ],
       ),
@@ -75,11 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('No Notes'),
+                                    Text(
+                                      'No Notes',
+                                      style: TextStyle(letterSpacing: 0.5),
+                                    ),
                                     Align(
                                       alignment: Alignment.center,
-                                      child:
-                                          Text('Tap the purple to add a Note'),
+                                      child: Text(
+                                        'Tap the purple Button to add a Note',
+                                        style: TextStyle(letterSpacing: 0.1),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -151,6 +158,16 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Icon(
         Icons.delete,
         color: Colors.white,
+      ),
+    );
+  }
+
+  _signOut() async {
+    await _auth.signOut();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => LoginScreen(),
       ),
     );
   }
